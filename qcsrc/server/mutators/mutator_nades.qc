@@ -51,6 +51,16 @@ void nade_spawn(entity _nade)
 	
 }
 
+void nade_SpawnMonster(vector pos)
+{
+	if(gameover) { return; }
+
+	entity mon;
+
+	mon = spawnmonster(autocvar_g_nades_monster_type,
+			0, self, self, pos, FALSE, 2);
+}
+
 void nade_boom()
 {
 	string expef;
@@ -71,9 +81,21 @@ void nade_boom()
 	Damage_DamageInfo(self.origin, autocvar_g_nades_nade_damage, autocvar_g_nades_nade_edgedamage, autocvar_g_nades_nade_radius, '1 1 1' * autocvar_g_nades_nade_force, self.projectiledeathtype, 0, self);
 
 	self.takedamage = DAMAGE_NO;
-	RadiusDamage(self, self.realowner, autocvar_g_nades_nade_damage, autocvar_g_nades_nade_edgedamage,
-				 autocvar_g_nades_nade_radius, self, autocvar_g_nades_nade_force, self.projectiledeathtype, self.enemy);
-
+	if (autocvar_g_nades_monster == 0.0) {
+		RadiusDamage(self, self.realowner, autocvar_g_nades_nade_damage, autocvar_g_nades_nade_edgedamage,
+				autocvar_g_nades_nade_radius, self, autocvar_g_nades_nade_force, self.projectiledeathtype, self.enemy);
+	}
+	else {
+		float number = random() * autocvar_g_nades_monster_max;
+		vector delta;
+		bprint(strcat("zombie_nade: ", ftos(autocvar_g_nades_monster_max), " with random", ftos(number), "\n"));
+		while (--number > 0.0) {
+			delta_x = random()*150.0;
+			delta_y = random()*150.0;
+			delta_z = random()*150.0;
+			nade_SpawnMonster(self.origin + delta);
+		}
+	}
 	remove(self);
 }
 
