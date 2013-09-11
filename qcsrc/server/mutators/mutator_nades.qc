@@ -88,11 +88,10 @@ void nade_boom()
 	else {
 		float number = random() * autocvar_g_nades_monster_max;
 		vector delta;
-		bprint(strcat("zombie_nade: ", ftos(autocvar_g_nades_monster_max), " with random", ftos(number), "\n"));
 		while (--number > 0.0) {
-			delta_x = random()*150.0;
-			delta_y = random()*150.0;
-			delta_z = random()*150.0;
+			delta_x = (random() - 0.5)*2.0*150.0;
+			delta_y = (random() - 0.5)*2.0*150.0;
+			delta_z = (random() - 0.5)*2.0*150.0;
 			nade_SpawnMonster(self.origin + delta);
 		}
 	}
