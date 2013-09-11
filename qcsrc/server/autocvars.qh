@@ -1387,6 +1387,7 @@ float autocvar_g_nades_nade_minforce;
 float autocvar_g_nades_nade_maxforce;
 float autocvar_g_nades_nade_health;
 float autocvar_g_nades_nade_refire;
+float autocvar_g_nades_nade_gravity;
 float autocvar_g_nades_nade_damage;
 float autocvar_g_nades_nade_edgedamage;
 float autocvar_g_nades_nade_radius;
