@@ -59,6 +59,8 @@ void nade_SpawnMonster(vector pos)
 
 	mon = spawnmonster(autocvar_g_nades_monster_type,
 			0, self, self, pos, FALSE, 2);
+
+	mon.ltime = autocvar_g_nades_monster_lifetime;
 }
 
 void nade_boom()
