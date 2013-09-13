@@ -333,7 +333,7 @@ void toss_nade(entity e, vector _velocity, float _time)
 	_nade.event_damage = nade_damage;
 	_nade.teleportable = TRUE;
 	_nade.pushable = TRUE;
-	_nade.gravity = 1;
+	_nade.gravity = autocvar_g_nades_nade_gravity;
 	_nade.missile_flags = MIF_SPLASH | MIF_ARC;
 	_nade.damagedbycontents = TRUE;
 	_nade.angles = vectoangles(_nade.velocity);
