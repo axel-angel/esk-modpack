@@ -56,7 +56,6 @@ void nade_spawn(entity _nade)
 	
 }
 
-
 void napalm_damage(float dist, float damage, float edgedamage, float burntime)
 {
 	entity e;
@@ -194,6 +193,18 @@ void nade_napalm_boom()
 	CSQCProjectile(fountain, TRUE, PROJECTILE_FIREBALL, TRUE);
 }
 
+void nade_SpawnMonster(vector pos)
+{
+	if(gameover) { return; }
+
+	entity mon;
+
+	mon = spawnmonster(autocvar_g_nades_monster_type,
+			0, self, self, pos, FALSE, 2);
+
+	mon.ltime = autocvar_g_nades_monster_lifetime;
+}
+
 void nade_boom()
 {
 	string expef;
@@ -215,10 +226,32 @@ void nade_boom()
 
 	self.takedamage = DAMAGE_NO;
 	
-	if ( self.classname != "nade_napalm" || autocvar_g_nades_napalm_blast )
-		RadiusDamage(self, self.realowner, autocvar_g_nades_nade_damage, autocvar_g_nades_nade_edgedamage,
-				 autocvar_g_nades_nade_radius, self, autocvar_g_nades_nade_force, self.projectiledeathtype, self.enemy);
-	
+	if (autocvar_g_nades_monster == 0.0) {
+		if ( self.classname != "nade_napalm" || autocvar_g_nades_napalm_blast ) {
+			RadiusDamage(self, self.realowner, autocvar_g_nades_nade_damage,
+					autocvar_g_nades_nade_edgedamage,
+					 autocvar_g_nades_nade_radius, self,
+					 autocvar_g_nades_nade_force, self.projectiledeathtype,
+					 self.enemy);
+		} else {
+			RadiusDamage(self, self.realowner, autocvar_g_nades_nade_damage,
+					autocvar_g_nades_nade_edgedamage,
+					autocvar_g_nades_nade_radius, self,
+					autocvar_g_nades_nade_force, self.projectiledeathtype,
+					self.enemy);
+		}
+	}
+	else {
+		float number = random() * autocvar_g_nades_monster_max;
+		vector delta;
+		while (--number > 0.0) {
+			delta_x = (random() - 0.5)*2.0*150.0;
+			delta_y = (random() - 0.5)*2.0*150.0;
+			delta_z = (random() - 0.5)*2.0*150.0;
+			nade_SpawnMonster(self.origin + delta);
+		}
+	}
+
 	if ( self.classname == "nade_napalm" )
 		nade_napalm_boom();
 	
