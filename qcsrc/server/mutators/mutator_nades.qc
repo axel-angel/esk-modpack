@@ -60,6 +60,8 @@ void nade_SpawnMonster(vector pos)
 	mon = spawnmonster(autocvar_g_nades_monster_type,
 			0, self, self, pos, FALSE, 2);
 
+	mon.owner = mon.realowner = self.realowner;
+	mon.team = self.realowner.team;
 	mon.ltime = time + autocvar_g_nades_monster_lifetime;
 }
 
