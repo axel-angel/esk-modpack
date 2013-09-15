@@ -170,7 +170,7 @@ void hidden_Reset() // used to clear the ballcarrier whenever the match switches
 // Bot player logic
 // ================
 
-void havocbot_goalrating_ball(float ratingscale, vector org)
+void hidden_havocbot_goalrating_ball(float ratingscale, vector org)
 {
 	float t;
 	entity ball_owner;
@@ -190,7 +190,7 @@ void havocbot_goalrating_ball(float ratingscale, vector org)
 	navigation_routerating(hidden_ball, ratingscale, 2000);
 }
 
-void havocbot_role_ka_carrier()
+void hidden_havocbot_role_ka_carrier()
 {
 	if (self.deadflag != DEAD_NO)
 		return;
@@ -208,12 +208,12 @@ void havocbot_role_ka_carrier()
 
 	if (!self.ballcarried)
 	{
-		self.havocbot_role = havocbot_role_ka_collector;
+		self.havocbot_role = hidden_havocbot_role_ka_collector;
 		self.bot_strategytime = 0;
 	}
 }
 
-void havocbot_role_ka_collector()
+void hidden_havocbot_role_ka_collector()
 {
 	if (self.deadflag != DEAD_NO)
 		return;
@@ -225,13 +225,13 @@ void havocbot_role_ka_collector()
 		navigation_goalrating_start();
 		havocbot_goalrating_items(10000, self.origin, 10000);
 		havocbot_goalrating_enemyplayers(1000, self.origin, 10000);
-		havocbot_goalrating_ball(20000, self.origin);
+		hidden_havocbot_goalrating_ball(20000, self.origin);
 		navigation_goalrating_end();
 	}
 
 	if (self.ballcarried)
 	{
-		self.havocbot_role = havocbot_role_ka_carrier;
+		self.havocbot_role = hidden_havocbot_role_ka_carrier;
 		self.bot_strategytime = 0;
 	}
 }
@@ -246,7 +246,7 @@ MUTATOR_HOOKFUNCTION(hidden_Scoring)
 	if((frag_attacker != frag_target) && (IS_PLAYER(frag_attacker)))
 	{
 		if(frag_target.ballcarried) { // add to amount of times killing carrier
-			PlayerScore_Add(frag_attacker, SP_KEEPAWAY_CARRIERKILLS, 1);
+			PlayerScore_Add(frag_attacker, SP_HIDDEN_KILLS, 1);
 			if(autocvar_g_keepaway_score_bckill) // add bckills to the score
 				PlayerScore_Add(frag_attacker, SP_SCORE, autocvar_g_keepaway_score_bckill);
 		}
@@ -344,9 +344,9 @@ MUTATOR_HOOKFUNCTION(hidden_PlayerPowerups)
 MUTATOR_HOOKFUNCTION(hidden_BotRoles)
 {
 	if (self.ballcarried)
-		self.havocbot_role = havocbot_role_ka_carrier;
+		self.havocbot_role = hidden_havocbot_role_ka_carrier;
 	else
-		self.havocbot_role = havocbot_role_ka_collector;
+		self.havocbot_role = hidden_havocbot_role_ka_collector;
 	return TRUE;
 }
 

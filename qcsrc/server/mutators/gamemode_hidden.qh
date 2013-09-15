@@ -1,8 +1,8 @@
 // these are needed since mutators are compiled last
 
-entity ka_ball;
+entity hidden_ball;
 
 #define SP_HIDDEN_KILLS 4
 
-void() havocbot_role_ka_carrier;
-void() havocbot_role_ka_collector;
+void() hidden_havocbot_role_ka_carrier;
+void() hidden_havocbot_role_ka_collector;

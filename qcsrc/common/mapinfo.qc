@@ -364,6 +364,7 @@ float _MapInfo_Generate(string pFilename) // 0: failure, 1: ok ent, 2: ok bsp
 		MapInfo_Map_supportedGametypes |= MAPINFO_TYPE_DEATHMATCH;      // DM always works
 		MapInfo_Map_supportedGametypes |= MAPINFO_TYPE_LMS;             // LMS always works
 		MapInfo_Map_supportedGametypes |= MAPINFO_TYPE_KEEPAWAY;		// Keepaway always works
+		MapInfo_Map_supportedGametypes |= MAPINFO_TYPE_HIDDEN;		// Hidden always works
 
 		if(spawnpoints >= 8  && diameter > 4096) {
 			MapInfo_Map_supportedGametypes |= MAPINFO_TYPE_TEAM_DEATHMATCH;

@@ -197,6 +197,11 @@ void InitGameplayMode()
 	{
 		MUTATOR_ADD(gamemode_keepaway);
 	}
+
+	if(g_hidden)
+	{
+		MUTATOR_ADD(gamemode_hidden);
+	}
 	
 	if(g_vip)
 	{
