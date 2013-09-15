@@ -58,6 +58,7 @@ mutators/mutator_overkill.qh
 mutators/mutator_freeze.qh
 mutators/mutator_minstagib.qh
 mutators/mutator_nades.qh
+mutators/gamemode_hidden.qh
 
 //// tZork Turrets ////
 tturrets/include/turrets_early.qh
