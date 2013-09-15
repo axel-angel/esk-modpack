@@ -91,20 +91,19 @@ void hidden_assignHidden()
 	FOR_EACH_PLAYER(e) {
 		++total_players;
 	}
-	//bprint(strcat("assign hidden, nb players: ", ftos(total_players), "\n"));
 
 	// choose one hidden among them
 	count = total_players;
 	FOR_EACH_PLAYER(e) {
 		if (!hidden_player && (count == 1 || random() <= 1.0/count)) {
-			bprint(strcat("player ", ftos(count), " is hidden\n"));
 			e.alpha = autocvar_g_minstagib_invis_alpha;
 			hidden_player = e;
+			Send_Notification(NOTIF_ONE, e, MSG_CENTER, INFO_PLAYER_HIDDEN);
 		}
 		else {
-			bprint(strcat("player ", ftos(count), " is in force\n"));
 			e.alpha = 1.0;
 			--count;
+			Send_Notification(NOTIF_ONE, e, MSG_CENTER, INFO_PLAYER_FORCE);
 		}
 	}
 }
@@ -131,7 +130,6 @@ float hidden_canRoundStart() {
 		return 0;
 	}
 
-	//bprint("hidden_canRoundEnd hidden_canRoundStart enough players");
 	Kill_Notification(NOTIF_ALL, world, MSG_CENTER_CPID, CPID_MISSING_PLAYERS);
 
 	return 1;
@@ -143,13 +141,10 @@ float hidden_checkWinner() {
 	float deltaT;
 	deltaT = round_handler_GetEndTime() - time;
 	total_players_alive = 0;
-	//bprint("hidden_checkWinner test\n");
 
 	if (!hidden_player)
 		return -1;
 
-	//bprint("hidden_canRoundEnd hidden is still here\n");
-	//bprint(strcat("hidden health: ", ftos(hidden_player.health), "\n"));
 	// forces win if timeout or if the hidden is dead
 	if ( (round_handler_GetEndTime() > 0 && deltaT <= 0)
 	  || hidden_player.health < 1 )
@@ -157,7 +152,6 @@ float hidden_checkWinner() {
 		return 1;
 	}
 
-	//bprint("hidden_canRoundEnd force didnt win\n");
 	FOR_EACH_PLAYER(e) {
 		if (e.health >= 1) ++total_players_alive;
 	}
@@ -166,7 +160,6 @@ float hidden_checkWinner() {
 		return -1;
 	}
 
-	//bprint("hidden_canRoundEnd force not all dead\n");
 	// or hidden wins if he's the last alive
 	if (total_players_alive == 1 && hidden_player.health >= 1) {
 		return 2;
@@ -179,7 +172,6 @@ float hidden_canRoundEnd() {
 	float winner_team;
 
 	winner_team = hidden_checkWinner();
-	//bprint(strcat("hidden_canRoundEnd win team: ", ftos(winner_team), "\n"));
 	if (winner_team == -1)
 		Send_Notification(NOTIF_ALL, world, MSG_CENTER, CENTER_ROUND_TIED);
 	if (winner_team == 1)
@@ -189,12 +181,10 @@ float hidden_canRoundEnd() {
 
 	// round has ended
 	if (winner_team != 0) {
-		bprint(strcat("hidden_canRoundEnd round over, win: , win: ", ftos(winner_team), "\n"));
 		hidden_roundInit();
 		return 1;
 	}
 
-	//bprint("hidden_canRoundEnd can continue\n");
 	return 0;
 }
 
