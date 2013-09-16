@@ -198,11 +198,6 @@ void InitGameplayMode()
 		MUTATOR_ADD(gamemode_keepaway);
 	}
 
-	if(g_hidden)
-	{
-		MUTATOR_ADD(gamemode_hidden);
-	}
-	
 	if(g_vip)
 	{
 		fraglimit_override = autocvar_g_vip_point_limit;
@@ -217,6 +212,13 @@ void InitGameplayMode()
 		timelimit_override = 0; // no timelimit in invasion, round based
 		fraglimit_override = autocvar_g_invasion_round_limit;
 		MUTATOR_ADD(gamemode_invasion);
+	}
+
+	if(g_hidden)
+	{
+		fraglimit_override = autocvar_g_hidden_point_limit;
+		leadlimit_override = autocvar_g_hidden_point_leadlimit;
+		MUTATOR_ADD(gamemode_hidden);
 	}
 
 	if(teamplay)
