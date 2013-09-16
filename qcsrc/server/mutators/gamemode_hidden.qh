@@ -1,0 +1,5 @@
+// these are needed since mutators are compiled last
+
+entity hidden_player;
+
+#define SP_KEEPAWAY_PICKUPS 4
