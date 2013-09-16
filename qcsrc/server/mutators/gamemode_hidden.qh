@@ -2,4 +2,4 @@
 
 entity hidden_player;
 
-#define SP_KEEPAWAY_PICKUPS 4
+#define SP_HIDDEN_KILLS 4

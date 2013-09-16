@@ -1,32 +1,6 @@
 // ===========================================================
 //  Hidden game mode coding
-//  Started: September, 2013
-//
-//  FIXME: For the time being, I used the keepaway mod file
 // ===========================================================
-
-// this wall of uselessness is to avoid error for unused takeaway vars
-void keepaway_unused() {
-	autocvar_g_keepaway_ballcarrier_effects = 0;
-	autocvar_g_keepaway_ballcarrier_damage = 0;
-	autocvar_g_keepaway_ballcarrier_force = 0;
-	autocvar_g_keepaway_ballcarrier_highspeed = 0;
-	autocvar_g_keepaway_ballcarrier_selfdamage = 0;
-	autocvar_g_keepaway_ballcarrier_selfforce = 0;
-	autocvar_g_keepaway_noncarrier_damage = 0;
-	autocvar_g_keepaway_noncarrier_force = 0;
-	autocvar_g_keepaway_noncarrier_selfdamage = 0;
-	autocvar_g_keepaway_noncarrier_selfforce = 0;
-	autocvar_g_keepaway_noncarrier_warn = 0;
-	autocvar_g_keepaway_score_bckill = 0;
-	autocvar_g_keepaway_score_killac = 0;
-	autocvar_g_keepaway_score_timepoints = 0;
-	autocvar_g_keepaway_score_timeinterval = 0;
-	autocvar_g_keepawayball_damageforcescale = 0;
-	autocvar_g_keepawayball_effects = 0;
-	autocvar_g_keepawayball_respawntime = 0;
-	autocvar_g_keepawayball_trail_color = 0;
-}
 
 // ==============
 // Hook Functions
@@ -190,7 +164,7 @@ float hidden_canRoundEnd() {
 
 void hidden_Initialize() // run at the start of a match, initiates game mode
 {
-	if(!g_keepaway)
+	if(!g_hidden)
 		return;
 		
 	hidden_ScoreRules();
@@ -202,7 +176,7 @@ void hidden_Initialize() // run at the start of a match, initiates game mode
 }
 
 
-MUTATOR_DEFINITION(gamemode_keepaway)
+MUTATOR_DEFINITION(gamemode_hidden)
 {
 	MUTATOR_HOOK(MakePlayerObserver, hidden_RemovePlayer, CBC_ORDER_ANY);
 	MUTATOR_HOOK(ClientDisconnect, hidden_RemovePlayer, CBC_ORDER_ANY);

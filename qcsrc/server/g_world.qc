@@ -275,6 +275,7 @@ void cvar_changes_init()
 		BADCVAR("g_race_qualifying_timelimit");
 		BADCVAR("g_tdm");
 		BADCVAR("g_tdm_teams");
+		BADCVAR("g_hidden");
 		BADCVAR("leadlimit");
 		BADCVAR("nextmap");
 		BADCVAR("teamplay");
